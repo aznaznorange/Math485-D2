@@ -22,23 +22,7 @@ def main():
     # crx_train = crx_df[:math.floor(len(crx_df.index)*3/4)]
     # crx_test = crx_df[math.floor(len(crx_df.index)*3/4):]
 
-    np_data = np.array(crx_data)
-
-    dataX = np_data[:, 0:-1]
-    dataY = np_data[:, -1]
-
-    xTrain, xTest, yTrain, yTest = train_test_split(dataX,
-                                                    dataY,
-                                                    test_size=0.25,
-                                                    random_state=7)
-
-    model = xgb.XGBClassifier()
-    model.fit(xTrain, yTrain)
-
-    yPred = [round(value) for value in model.predict(xTest)]
-
-    accuracy = accuracy_score(yTest, yPred)
-    print("Accuracy: %.2f%%" % (accuracy * 100.0))
+    # model.fit(xTrain, yTrain)
 
     # dtrain = xgb.DMatrix(crx_train)
     # dtest = xgb.DMatrix(crx_test)
@@ -52,5 +36,39 @@ def main():
     # }
     # num_round = 10
     # bst = xgb.train()
+
+    np_data = np.array(crx_data)
+
+    data_x = np_data[:, 0:-1]
+    data_y = np_data[:, -1]
+
+    print("Model 1 (all identifiers)")
+    model(data_x, data_y)
+
+    print("Model 2 (top 2 most influential IDs by lasso")
+    data_x2 = data_x[:, 8:10]
+    model(data_x2, data_y)
+
+    print("Model 3 (top 5 most influential IDs by lasso)")
+    data_x3 = data_x[:, 6:11]
+    model(data_x3, data_y)
+
+    print("Model 4 (employed, credit, income)")
+    data_x4 = data_x[:, [9, 10, 14]]
+    model(data_x4, data_y)
+
+def model(data_x, data_y):
+    x_train, x_test, y_train, y_test = train_test_split(data_x,
+                                                        data_y,
+                                                        test_size=0.25,
+                                                        random_state=7)
+
+    xg_model = xgb.XGBClassifier()
+    xg_model.fit(x_train, y_train)
+
+    y_pred = [round(value) for value in xg_model.predict(x_test)]
+
+    accuracy = accuracy_score(y_test, y_pred)
+    print("Accuracy: %.2f%%" % (accuracy * 100.0))
 
 main()
