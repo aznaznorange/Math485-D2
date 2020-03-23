@@ -10,8 +10,8 @@ def main():
     data_x = np_data[:, 0:-1]
     data_y = np_data[:, -1]
 
-    print("Model 3 (top 5 most influential IDs by lasso)")
-    data_x3 = data_x[:, 6:11]
+    print("Model 5 (top 6 most influential IDs by lasso)")
+    data_x3 = data_x[:, [2, 8, 9, 12, 13, 14]]
     tune_depth_and_trees(data_x3, data_y)
     # Best: -0.343346 using {'max_depth': 2, 'n_estimators': 50}
 
