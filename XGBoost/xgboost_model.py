@@ -27,6 +27,7 @@ def main():
     modelKValidation(data_x2, data_y)
 
     print("Model 3 (top 5 most influential IDs by lasso)")
+    #Ethnicity, YearsEmployed, PriorDefault, Employed, CreditScore
     data_x3 = data_x[:, 6:11]
     modelKValidation(data_x3, data_y)
 

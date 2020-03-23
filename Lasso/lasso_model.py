@@ -40,6 +40,13 @@ def main():
     print(lasso.coef_)
     print(lasso.intercept_)
 
-
+    top = []
+    coefs = list(lasso.coef_)
+    for i in range(len(coefs)):
+        coefs[i] = abs(coefs[i])
+    for i in range(8):
+        index = coefs.index(max(coefs))
+        print(frame[index])
+        coefs[index] = 0
 
 main()
