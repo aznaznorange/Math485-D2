@@ -6,7 +6,6 @@ from sklearn.svm import SVC
 from sklearn import tree
 from sklearn.linear_model import LogisticRegression
 from statistics import mode
-import matlab.engine
 
 np_data = np.array(crx_data)
 
@@ -96,7 +95,7 @@ def model_kvalidation(data_x, data_y):
 
         y_pred_ens1 = ensemble1(y_pred1, y_pred2, y_pred3)
         y_pred_ens2 = ensemble2(y_prob1, y_prob2, y_prob3)
-        y_pred_ens3 = ensemble3(y_prob1, y_prob2, y_prob3, 4, 2, 1)     # values found by quick grid search
+        y_pred_ens3 = ensemble3(y_prob1, y_prob2, y_prob3, 7, 4, 1)     # values found by quick grid search
 
         stack1 = np.array(model1.predict(x_6cart))
         stack2 = np.array(model2.predict(x_5lasso))
