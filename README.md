@@ -12,12 +12,8 @@ Project Mentor:
 
 ## Notes
 
-After running parseData.py, it will generate a file (crx.py) containing an array called crx with all the data values. This variable can be imported. The mapping function is still in the works.
-
-## Included files
-
-* crx.data -- A file containing data on credit card approvals, provided by the UC Irvine Machine Learning Repository
-
-* parseData.py -- A short python script that creates a separate .py file with data values that can be imported.
+There are multiple models with the main models being Logistic Regression, CART, SVM and XGBoost. Other models have been used (such as Lasso) for feature selection. The ensemble method combines Logistic Regression, SVM and XGBoost models.
 
 ## References
+
+TBD
