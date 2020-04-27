@@ -9,7 +9,7 @@ frame = ['Male', 'Age', 'Debt', 'Married',
 
 def main():
     inputFile = 'crx.data'
-    outputFile = './lib/crx.py'
+    outputFile = './lib/crxOneHot.py'
 
     if not os.path.exists(inputFile):
         print("error: %s not found", inputFile)
@@ -28,7 +28,7 @@ def main():
         for line in lines:
             if "?" in line:
                 continue
-            if parseMethod1(line.split(','), fo, lineNum):
+            if parseMethod3(line.split(','), fo, lineNum):
                 fo.write(',\n')
             lineNum += 1
 
@@ -273,6 +273,130 @@ def parseMethod2(dataArr, fo, lineNum):
                 dataObj[frame[i]] = 1
             else:
                 dataObj[frame[i]] = 2
+        elif i == 13:
+            dataObj[frame[i]] = float(dataArr[i])
+        elif i == 14:
+            dataObj[frame[i]] = float(dataArr[i])
+        elif i == 15:
+            if "-" in dataArr[i]:
+                dataObj[frame[i]] = 0
+            else:
+                dataObj[frame[i]] = 1
+        else:
+            dataObj[frame[i]] = dataArr[i]
+
+        writeObj.append(dataObj[frame[i]])
+
+    fo.write(str(writeObj))
+    return True
+
+def parseMethod3(dataArr, fo, lineNum):
+    if len(dataArr) != len(frame):
+        print('Invalid data, line %s', lineNum)
+        return False
+
+    dataObj = {}
+    writeObj = []
+    for i in range(len(frame)):
+        if i == 0:
+            if dataArr[i] == "a":
+                dataObj[frame[i]] = 0
+            else:
+                dataObj[frame[i]] = 1
+        elif i == 1:
+            dataObj[frame[i]] = float(dataArr[i])
+        elif i == 2:
+            dataObj[frame[i]] = float(dataArr[i])
+        elif i == 3:
+            if dataArr[i] == "u":
+                dataObj[frame[i]] = [1,0,0,0]
+            elif dataArr[i] == "y":
+                dataObj[frame[i]] = [0,1,0,0]
+            elif dataArr[i] == "l":
+                dataObj[frame[i]] = [0,0,1,0]
+            else:
+                dataObj[frame[i]] = [0,0,0,1]
+        elif i == 4:
+            if dataArr[i] == "g":
+                dataObj[frame[i]] = [1,0,0]
+            elif dataArr[i] == "p":
+                dataObj[frame[i]] = [0,1,0]
+            else:
+                dataObj[frame[i]] = [0,0,1]
+        elif i == 5:
+            if dataArr[i] == "c":
+                dataObj[frame[i]] = [1,0,0,0,0,0,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "d":
+                dataObj[frame[i]] = [0,1,0,0,0,0,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "cc":
+                dataObj[frame[i]] = [0,0,1,0,0,0,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "i":
+                dataObj[frame[i]] = [0,0,0,1,0,0,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "j":
+                dataObj[frame[i]] = [0,0,0,0,1,0,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "k":
+                dataObj[frame[i]] = [0,0,0,0,0,1,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "m":
+                dataObj[frame[i]] = [0,0,0,0,0,0,1,0,0,0,0,0,0,0]
+            elif dataArr[i] == "r":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,1,0,0,0,0,0,0]
+            elif dataArr[i] == "q":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,1,0,0,0,0,0]
+            elif dataArr[i] == "w":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,0,1,0,0,0,0]
+            elif dataArr[i] == "x":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,0,0,1,0,0,0]
+            elif dataArr[i] == "e":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,0,0,0,1,0,0]
+            elif dataArr[i] == "aa":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,0,0,0,0,1,0]
+            else:
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,0,0,0,0,0,1]
+        elif i == 6:
+            if dataArr[i] == "v":
+                dataObj[frame[i]] = [1,0,0,0,0,0,0,0,0]
+            elif dataArr[i] == "h":
+                dataObj[frame[i]] = [0,1,0,0,0,0,0,0,0]
+            elif dataArr[i] == "bb":
+                dataObj[frame[i]] = [0,0,1,0,0,0,0,0,0]
+            elif dataArr[i] == "j":
+                dataObj[frame[i]] = [0,0,0,1,0,0,0,0,0]
+            elif dataArr[i] == "n":
+                dataObj[frame[i]] = [0,0,0,0,1,0,0,0,0]
+            elif dataArr[i] == "z":
+                dataObj[frame[i]] = [0,0,0,0,0,1,0,0,0]
+            elif dataArr[i] == "dd":
+                dataObj[frame[i]] = [0,0,0,0,0,0,1,0,0]
+            elif dataArr[i] == "ff":
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,1,0]
+            else:
+                dataObj[frame[i]] = [0,0,0,0,0,0,0,0,1]
+        elif i == 7:
+            dataObj[frame[i]] = float(dataArr[i])
+        elif i == 8:
+            if dataArr[i] == "t":
+                dataObj[frame[i]] = 0
+            else:
+                dataObj[frame[i]] = 1
+        elif i == 9:
+            if dataArr[i] == "t":
+                dataObj[frame[i]] = 0
+            else:
+                dataObj[frame[i]] = 1
+        elif i == 10:
+            dataObj[frame[i]] = float(dataArr[i])
+        elif i == 11:
+            if dataArr[i] == "t":
+                dataObj[frame[i]] = 0
+            else:
+                dataObj[frame[i]] = 1
+        elif i == 12:
+            if dataArr[i] == "g":
+                dataObj[frame[i]] = [1,0,0]
+            elif dataArr[i] == "p":
+                dataObj[frame[i]] = [0,1,0]
+            else:
+                dataObj[frame[i]] = [0,0,1]
         elif i == 13:
             dataObj[frame[i]] = float(dataArr[i])
         elif i == 14:

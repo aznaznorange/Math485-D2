@@ -2,7 +2,8 @@ import xgboost as xgb
 from lib.crxXGBoost import crx_data
 import numpy as np
 from sklearn.model_selection import train_test_split, KFold
-from sklearn.metrics import accuracy_score
+# from sklearn.decomposition import PCA
+# from sklearn.metrics import accuracy_score
 
 # import pandas as pd
 # from sklearn.preprocessing import OneHotEncoder
@@ -38,6 +39,11 @@ def main():
     print("Model 5 (6 most by CART)")
     data_x4 = data_x[:, [2, 8, 9, 12, 13, 14]]
     modelKValidation(data_x4, data_y)
+
+    # print("Model 6 (PCA with 4 columns)") 74.27%
+    # pca = PCA(n_components=4)
+    # x_pca = pca.fit_transform(data_x)
+    # modelKValidation(x_pca, data_y)
 
 def modelKValidation(data_x, data_y):
     splits = 5
